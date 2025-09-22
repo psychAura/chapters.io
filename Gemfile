@@ -64,5 +64,9 @@ group :test do
   gem "selenium-webdriver"
 end
 
-
+### dotenv
 gem 'dotenv-rails', groups: [:development, :test]
+
+#### http client
+gem "httparty"
+
