@@ -70,3 +70,5 @@ gem 'dotenv-rails', groups: [:development, :test]
 #### http client
 gem "httparty"
 
+gem "redis"
+gem "redis-client"

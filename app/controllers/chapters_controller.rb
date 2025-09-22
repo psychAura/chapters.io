@@ -3,13 +3,24 @@ class ChaptersController < ApplicationController
     service = NytBooksService.new
     @categories = {
       "Fiction" => "hardcover-fiction",
-      "Nonfiction" => "hardcover-nonfiction",
+      "Non-fiction" => "hardcover-nonfiction",
+      "Advice, How-To & Miscellaneous" => "advice-how-to-and-miscellaneous",
+      "Young Adult" => "young-adult-hardcover"
     }
 
-    # Fetch books for each category
-    @books_by_category = {}
-    @categories.each do |name, slug|
-      @books_by_category[name] = service.top_books(slug, 10)
+    # Fetchs books for each category
+    @books_by_category = Rails.cache.fetch("nyt_books_by_category", expires_in: 7.days) do
+      service = NytBooksService.new
+      data = {}
+      @categories.each do |name, slug|
+        data[name] = service.top_books(slug, 10)
+      end
+      data
     end
+
+    # Picks a random featured book from all categories
+    all_books = @books_by_category.values.flatten
+    @featured_book = all_books.sample if all_books.present?
+  
   end
 end
