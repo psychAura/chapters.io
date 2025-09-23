@@ -24,8 +24,8 @@
       <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
         <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
           <li><a href="#" class="block py-2 pl-3 text-blue-400 lg:p-0">Home</a></li>
-          <li><a href="#" class="block py-2 pl-3 text-gray-300 lg:p-0">Company</a></li>
-          <li><a href="#" class="block py-2 pl-3 text-gray-300 lg:p-0">Team</a></li>
+          <li><a href="<%= contact_path %>" class="block py-2 pl-3 text-gray-300 lg:p-0">Contact</a></li>
+          <li><a href="<%= team_path %>" class="block py-2 pl-3 text-gray-300 lg:p-0">Team</a></li>
         </ul>
       </div>
     </div>
@@ -36,10 +36,10 @@
 <section class="bg-gray-900 py-12">
   <div class="max-w-screen-xl px-4 mx-auto lg:grid lg:grid-cols-12 lg:gap-8">
     <div class="lg:col-span-7 pt-16">
-      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 text-white">Discover Amazing Books</h1>
-      <p class="mb-6 text-lg md:text-xl text-gray-400"> Your Top 10 New York Times Bestsellers!</p>
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-6 text-white">Discover Amazing Books</h1>
+      <p class="mb-10 text-lg md:text-xl text-gray-400"> Your Top 10 New York Times Bestsellers!</p>
       <div class="flex flex-wrap gap-3">
-        <a href="#" class="px-6 py-4 bg-blue-700 text-white rounded-lg text-lg md:text-xl">Receive Bookletters</a>
+        <a href="#" class="px-6 py-4 bg-blue-700 text-white rounded-lg text-lg md:text-xl">Join our Boolist</a>
         <a href="#" class="px-6 py-4 border border-gray-600 rounded-lg text-gray-200 hover:bg-gray-800 text-lg md:text-xl">Personalize</a>
       </div>
     </div>
@@ -52,6 +52,17 @@
 
   </div>
 </section>
+<!-- About Section -->
+<section class="bg-gray-900 py-12">
+  <div class="max-w-4xl mx-auto text-center px-6">
+    <h2 class="text-3xl font-bold text-white mb-4">New York Times Bestsellers, Curated for You !</h2>
+    <p class="text-lg text-gray-300 mb-6">
+      Explore the top books across four genres, handpicked each week for your reading delight. 
+      Subscribe to receive our <span class="text-blue-400 font-semibold">Featured Book of the Week</span> 
+      delivered straight to your inbox.
+    </p>
+  </div>
+</section>
 
 <!-- Categories -->
 <section class="py-12 bg-gray-900 text-gray-100">
@@ -60,7 +71,7 @@
     <div class="flex flex-wrap justify-center gap-4 mb-10">
       <% @books_by_category.keys.each do |category| %>
         <button data-category="<%= category.parameterize %>"
-          class="category-tab px-4 py-2 rounded-md bg-blue-600 hover:bg-purple-700 text-white font-medium transition">
+          class="category-tab px-4 py-2 rounded-md bg-blue-700 hover:bg-purple-700 text-white font-medium transition">
           <%= category.titleize %>
         </button>
       <% end %>
@@ -69,11 +80,13 @@
     <% @books_by_category.each do |category, books| %>
       <div id="category-<%= category.parameterize %>" class="category-grid hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-12">
         <% books.each do |book| %>
+          
           <div class="bg-gray-700 text-gray-100 rounded-lg shadow-lg hover:shadow-xl overflow-hidden">
             <img src="<%= book["book_image"] %>" alt="<%= book["title"] %>" class="w-full h-60 object-cover">
             <div class="p-4">
               <h3 class="font-semibold text-sm truncate"><%= book["title"] %></h3>
               <p class="text-xs text-gray-400 mb-2"><%= book["author"] %></p>
+              <p class="text-xs text-gray-400 mb-2"><%= book["description"] %></p>
               <a href="<%= book["amazon_product_url"] %>" target="_blank" class="text-blue-400 hover:underline text-sm">Buy on Amazon</a>
             </div>
           </div>
@@ -97,9 +110,9 @@
           <p class="text-gray-400 mb-4"><%= truncate(@featured_book["description"], length: 150) %></p>
           <div class="flex gap-3">
             <a href="<%= @featured_book["amazon_product_url"] %>" target="_blank"
-               class="px-4 py-2 bg-blue-600 rounded-lg text-white hover:bg-blue-700">Buy Now</a>
+               class="px-4 py-2 bg-blue-700 rounded-lg text-white hover:bg-blue-800">Buy Now</a>
             <button class="px-4 py-2 border border-gray-500 rounded-lg text-gray-300 hover:bg-gray-600">
-              ⭐ Star
+              Bookmark
             </button>
           </div>
         </div>
@@ -123,6 +136,13 @@
     </form>
   </div>
 </section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 border-t border-gray-700 py-6">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
+    <p>&copy; <%= Time.current.year %> Chapters. All rights reserved.</p>
+  </div>
+</footer>
 
 
 <!-- Tabs JS -->

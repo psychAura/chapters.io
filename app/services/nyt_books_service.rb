@@ -17,4 +17,7 @@ class NytBooksService
       []
     end
   end
+
+  
+
 end

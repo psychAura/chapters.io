@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root "chapters#index"
   get "chapters/index"
+  get "/contact", to: "chapters#contact", as: :contact
+  get "/team", to: "chapters#team", as: :team
+
+  resources :chapters
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

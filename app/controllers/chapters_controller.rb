@@ -19,8 +19,10 @@ class ChaptersController < ApplicationController
     end
 
     # Picks a random featured book from all categories
-    all_books = @books_by_category.values.flatten
-    @featured_book = all_books.sample if all_books.present?
+    @featured_book = Rails.cache.fetch("featured_book_of_the_week", expires_in: 1.week) do
+      all_books = @books_by_category.values.flatten
+      all_books.sample if all_books.present?
+    end
   
   end
 end
